@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import userData from '../fixtures/users/user-data.json'
+import userData from '../fixtures/user-data.json'
 import LoginPage from '../pages/loginPage.js'
 import DashboarPage from '../pages/dashboardPage.js'
 import MenuPage from '../pages/menuPage.js'
