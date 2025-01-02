@@ -1,26 +1,36 @@
 name: CI
 
-ON: [push]
+on:
+  push:
+    branches:
+      - main  # ou o nome da branch em que você quer rodar o fluxo de trabalho
+  # Ou você pode configurar para rodar em outros eventos, como pull_request ou schedule (agendamento), se necessário.
+
 jobs:
   build-test:
-      runs-on: ubuntu-20.04
-      steps:
+    runs-on: ubuntu-20.04
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Install dependencies
+        run: |
+          npm install
 
-        - name: Checkout
-          uses: actions/checkout@v3 
-          
-        - name: Cypress Tests 🎯
-          uses: cypress-io/github-action@v5
-          with:
-            start: 'npm run dev'
-            build: 'npm run build'
-            
-        - uses: actions/upload-artifact@v3
-          if: always()
-          with:
-            name: Cypress Result
-            path: |
-                 cypress/screenshots
-                 cypress/videos
-                 cypress/results
-            if-no-files-found: ignore
+      - name: Run Cypress Tests 🎯
+        uses: cypress-io/github-action@v5
+        with:
+          start: 'npm run dev'  # Comando para iniciar sua aplicação em modo de desenvolvimento
+          build: 'npm run build'  # Comando para construir sua aplicação (se necessário)
+
+      - name: Upload Cypress Results 📊
+        uses: actions/upload-artifact@v3
+        if: always()  # Garante que o upload seja feito mesmo que os testes falhem
+        with:
+          name: Cypress Result
+          path: |
+            cypress/screenshots
+            cypress/videos
+            cypress/results
+          if-no-files-found: ignore
