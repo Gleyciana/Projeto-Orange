@@ -22,7 +22,6 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           start: 'npm run dev'  # Comando para iniciar sua aplicação em modo de desenvolvimento
-          build: 'npm run build'  # Comando para construir sua aplicação (se necessário)
 
       - name: Upload Cypress Results 📊
         uses: actions/upload-artifact@v3
